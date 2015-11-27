@@ -5,6 +5,7 @@
  */
 namespace norotaro\gcm;
 
+use Yii;
 use yii\base\Component;
 use yii\log\Logger;
 use yii\base\InvalidConfigException;
