@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php-gcm/php-gcm": "^1.1.1"
+        "norotaro/php-gcm": "^1.1.1"
     },
     "autoload": {
         "psr-4": {
