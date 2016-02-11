@@ -147,7 +147,7 @@ class GCM extends Component
 
         try {
             // send a message
-            $result = $this->getClient()->sendMulti($message, $tokens, $this->retryTimes);
+            $result = $this->getClient()->send($message, $tokens);
             $this->success = $result->getSuccess();;
         } catch (\InvalidArgumentException $e) {
             $this->errors[] = $e->getMessage();
