@@ -143,17 +143,7 @@ class GCM extends Component
             return null;
         }
 
-        $message = new \PHP_GCM\Message();
-        foreach ($args as $method => $value) {
-            $value = is_array($value) ? $value : [$value];
-            call_user_func_array([$message, $method], $value);
-        }
-
-        // set a custom payload data
-        $payloadData['message'] = $text;
-        foreach ($payloadData as $key => $value) {
-            $message->addData($key, $value);
-        }
+        $message = new \PHP_GCM\Message($payloadData, $args);
 
         try {
             // send a message
