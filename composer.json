@@ -15,6 +15,9 @@
             "email": "nelson.otazo@gmail.com"
         }
     ],
+    "require": {
+        "norotaro/php-gcm": "dev-master"
+    },
     "autoload": {
         "psr-4": {
             "norotaro\\gcm\\": ""
