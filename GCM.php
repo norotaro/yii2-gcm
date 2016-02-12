@@ -143,6 +143,9 @@ class GCM extends Component
             return null;
         }
 
+        // set a custom payload data
+        $payloadData['message'] = $text;
+
         $message = new \PHP_GCM\Message($payloadData, $args);
 
         try {
