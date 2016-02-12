@@ -138,14 +138,14 @@ class GCM extends Component
         $tokens = is_array($tokens) ? $tokens : [$tokens];
         // check if its dry run or not
         if ($this->dryRun === true) {
-            $this->log($tokens, $notification->body, $payloadData, $args);
+            $this->log($tokens, $notification['body'], $payloadData, $args);
             $this->success = true;
             return null;
         }
 
         // set a custom payload data
-        $payloadData['message'] = $notification->body;
-        $payloadData['title'] = $notification->title;
+        $payloadData['message'] = $notification['body'];
+        $payloadData['title'] = $notification['title'];
         $args['data'] = $payloadData;
 
         $message = new \PHP_GCM\Message($notification, $args);
