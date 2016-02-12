@@ -128,25 +128,27 @@ class GCM extends Component
      * );
      * </code>
      * @param string|array $tokens
-     * @param $text
+     * @param array $notification
      * @param array $payloadData
      * @param array $args
      * @return null|\PHP_GCM\Message
      */
-    public function sendMulti($tokens, $text, $payloadData = [], $args = [])
+    public function sendMulti($tokens, $notification, $payloadData = [], $args = [])
     {
         $tokens = is_array($tokens) ? $tokens : [$tokens];
         // check if its dry run or not
         if ($this->dryRun === true) {
-            $this->log($tokens, $text, $payloadData, $args);
+            $this->log($tokens, $notification->text, $payloadData, $args);
             $this->success = true;
             return null;
         }
 
         // set a custom payload data
-        $payloadData['message'] = $text;
+        $payloadData['message'] = $notification->text;
+        $payloadData['title'] = $notification->title;
+        $args['data'] = $payloadData;
 
-        $message = new \PHP_GCM\Message($payloadData, $args);
+        $message = new \PHP_GCM\Message($notification, $args);
 
         try {
             // send a message
