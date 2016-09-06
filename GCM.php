@@ -151,13 +151,21 @@ class GCM extends Component
         $message = new \PHP_GCM\Message($notification, $args);
 
         try {
-            // send a message
-            $result = $this->getClient()->send($message, $tokens);
-            $this->success = $result->getSuccess();;
+            // slice tokens to 1000 items
+            $limit = 1000;
+            $count = abs(count($tokens)/$limit);
+            for ($i=0; $i < $count; $i++) { 
+                $lote = array_slice($tokens, ($i*$limit)+1, $limit);
+                // send a message
+                $result = $this->getClient()->send($message, $lote);
+                $this->success = $result->getSuccess();
+            }
         } catch (\InvalidArgumentException $e) {
+            $this->success = false;
             $this->errors[] = $e->getMessage();
             // $deviceRegistrationId was null
         } catch (\PHP_GCM\InvalidRequestException $e) {
+            $this->success = false;
             if ($e->getMessage()) {
                 $this->errors[] = $e->getMessage();
             } else {
@@ -165,6 +173,7 @@ class GCM extends Component
             }
             // server returned HTTP code other than 200 or 503
         } catch (\Exception $e) {
+            $this->success = false;
             $this->errors[] = $e->getMessage();
             // message could not be sent
         }
